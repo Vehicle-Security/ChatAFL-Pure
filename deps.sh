@@ -18,7 +18,8 @@ apt-get -y install sudo \
 	gdb \
 	netcat \
 	strace \
-	wget
+	wget \
+	bear
 
 pip3 install gcovr==4.2
 

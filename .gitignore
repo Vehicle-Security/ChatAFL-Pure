@@ -29,3 +29,11 @@ res_*
 Run/live5555/live-gcov
 Run/live5555/live5555
 ChatAFL/chat-llm-conf.h
+compile_commands.json
+perf.data
+perf.data.*
+core.*
+out.perf
+out.folded
+flamegraph.svg
+out-*

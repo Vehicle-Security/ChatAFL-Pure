@@ -1,4 +1,5 @@
 ROOTDIR=$(realpath $(pwd)/../..)
+WORKDIR=$(pwd)
 ChatAFLDIR=$(realpath $(pwd)/../../ChatAFL)
 export PATH=${PATH}:${ChatAFLDIR}
 export AFLNET=${ChatAFLDIR}

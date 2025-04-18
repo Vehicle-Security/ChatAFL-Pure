@@ -5,10 +5,10 @@ ChatAFLDIR=$(realpath $(pwd)/../../ChatAFL)
 # echo $ChatAFLDIR
 
 # build ChatAFL 
-# rm -rf ${ChatAFLDIR}/afl-fuzz
+rm -rf ${ChatAFLDIR}/afl-fuzz
 if [ ! -f ${ChatAFLDIR}/afl-fuzz ]; then
 	cd ${ChatAFLDIR} 
-	make clean all -j
+	bear make clean all -j
 	cd llvm_mode && make -j
 fi
 

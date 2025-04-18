@@ -442,13 +442,22 @@ void setup_llm_grammars()
 
   for (int iter = 0; iter < TEMPLATE_CONSISTENCY_COUNT; iter++)
   {
+    char *grammar_output_path = alloc_printf("%s/protocol-grammars/llm-grammar-output-%d", out_dir, iter);
+
+    // Check if the file already exists
+    if (access(grammar_output_path, F_OK) == 0) {
+      // read file content to 
+      // exit(0);
+      continue;
+    }
+
     klist_t(gram) *grammar_list = kl_init(gram);
 
     char *templates_answer = chat_with_llm(templates_prompt, "turbo", GRAMMAR_RETRIES, 0.5);
     if (templates_answer == NULL)
       goto free_templates_answer;
 
-    // printf("## Answer from LLM:\n %s\n", templates_answer);
+    printf("## Answer from LLM:\n %s\n", templates_answer);
     char *remaining_prompt = construct_prompt_for_remaining_templates(protocol_name, first_question, templates_answer);
     // printf("remaining prompt is:\n %s\n", remaining_prompt);
     char *remaining_templates = chat_with_llm(remaining_prompt, "turbo", GRAMMAR_RETRIES, 0.5);
@@ -460,7 +469,7 @@ void setup_llm_grammars()
     char *combined_templates = NULL;
     asprintf(&combined_templates, "%s\n%s", templates_answer, remaining_templates);
 
-    char *grammar_output_path = alloc_printf("%s/protocol-grammars/llm-grammar-output-%d", out_dir, iter);
+   
     int grammar_output_fd = open(grammar_output_path, O_WRONLY | O_CREAT, 0600);
 
     ck_write(grammar_output_fd, combined_templates, strlen(combined_templates), grammar_output_path);
